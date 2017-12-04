@@ -91,7 +91,7 @@ def trainNet(network, train, l_rate, n_epoch, n_outputs):
 seed(1)
 
 outValNBack = 3
-flapDat = open('output21_2.csv','r')
+flapDat = open('cooperData/output21_2.csv','r')
 flapDat = csv.reader(flapDat,delimiter=',')
 dataset = list(flapDat)
 dataset = [[int(float(j)) for j in i] for i in dataset]
