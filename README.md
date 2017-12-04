@@ -10,30 +10,11 @@
 
 # Flap(AI) Bird
 
-Artificial inteligence playing a Python Port of the famous Flappy Bird game. We used genetic algorithms to train neural networks for each bird, which quickly learns how to jump, even on undeterministic pipes, after about 30 generations, the bird can play as well as the average human. After a few hundred, the bird quickly becomes superhuman. 
-Also included is a supervised neural network and training data pulled from a hardcoded bird wich could average about 70 pipes.
-
-### Synopsis
-
-At the top of the file there should be a short introduction and/ or overview that explains **what** the project is. This description should match descriptions added for package managers (Gemspec, package.json, etc.)
-
-### Motivation
-
-A short description of the motivation behind the creation and maintenance of the project. This should explain **why** the project exists.
-
-## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-### Prerequisities
-
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
+Artificial intelligence playing a Python Port of the famous Flappy Bird game. We used genetic algorithms to train neural networks for each bird, which quickly learns how to jump, even on non deterministic pipes, after about 30 generations, the bird can play as well as the average human. After a few hundred, the bird quickly becomes superhuman. 
+Also included is a supervised neural network and training data pulled from a hardcoded bird (70 pipe average).
 
 ### Installing
+This code should run on any machine, with pygame being the biggest bottleneck on that front.
 As always with python, we recomend using pip to install packages. 
 
 1. Install Python 2.7.X or 3.5.x from [here](https://www.python.org/download/releases/)
