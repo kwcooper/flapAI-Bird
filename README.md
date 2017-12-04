@@ -1,35 +1,11 @@
-NOTE: This implementation borrows and modifies a PyGame Version of flappy bird found at https://github.com/sourabhv/FlapPyBird, by Sourabh Verma (sourabhv)
 
 <img src="videos/output.gif"> 
 
-FlappyBirdClone
-===============
 
-A Flappy Bird Clone made using [python-pygame][1]
 
-How-to
-------
 
-1. Install Python 2.7.X or 3.5.x from [here](https://www.python.org/download/releases/)
 
-2. Install PyGame 1.9.X from [here](http://www.pygame.org/download.shtml)
 
-3. Clone this repository: `git@github.com:ceastIU/Flappy-Bird-Neural-Net.git` or click `Download ZIP` in right panel and extract it.
-
-4. Run `python flappy.py` from the repo's directory
-
-5. use <kbd>&uarr;</kbd> or <kbd>Space</kbd> key to play, <kbd>p;</kbd> key to pause and <kbd>Esc</kbd> to close the game.
-
-  (Note: Install pyGame for same version python as above)
-
-  (For x64 windows, get exe [here](http://www.lfd.uci.edu/~gohlke/pythonlibs/#pygame))
-
-ScreenShot
-----------
-
-![Flappy Bird](screenshot1.png)
-
-[1]: http://www.pygame.org
 
 
 # Flap(AI) Bird
@@ -58,8 +34,16 @@ Give examples
 ```
 
 ### Installing
+As always with python, we recomend using pip to install packages. 
 
-A step by step series of examples that tell you have to get a development env running
+1. Install Python 2.7.X or 3.5.x from [here](https://www.python.org/download/releases/)
+
+2. Install PyGame 1.9.X from [here](http://www.pygame.org/download.shtml)
+
+3. Grab this repo
+
+4. Run `python flappy.py` from the repo's directory
+
 
 Stay what the step will be
 
@@ -79,6 +63,8 @@ End with an example of getting some data out of the system or using it for a lit
 
 Show what the library does as concisely as possible, developers should be able to figure out **how** your project solves their problem by looking at the code example. Make sure the API you are showing off is obvious, and that your code is short and concise.
 
+ use <kbd>p;</kbd> key to pause and <kbd>Esc</kbd> to close the game.
+
 ## API Reference
 
 Depending on the size of the project, if it is small and simple enough the reference docs can be added to the README. For medium size to larger projects it is important to at least provide a link to where the API reference docs live.
@@ -95,44 +81,19 @@ Explain what these tests test and why
 Give an example
 ```
 
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* Dropwizard - Bla bla bla
-* Maven - Maybe
-* Atom - ergaerga
-
-## Contributing
-
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
 ## Authors
 
-* **John Doe** - *Initial work* - [JohnDoe](https://github.com/JohnDoe)
+* **Keiland Cooper** - *data collection, supervised net, neural network, network analysis* - [website](https://www.kwcooper.xyz)
+* **Christopher East** - *Game editing and genetic algorithm work* - [github](https://github.com/ceastIU)
+* **Kirk Harlow** - *Game editing and data collection* - [github](https://github.com/jkharlow)
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
 ## License
 
-This project is licensed under the **BSD License** - see the [LICENSE.md](LICENSE.md) file for details.
+This project is licensed under an edited MIT Lisence. 
 
 ## Acknowledgments
 
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
+* This implementation borrows and modifies a PyGame Version of flappy bird found at https://github.com/sourabhv/FlapPyBird, by Sourabh Verma (sourabhv)
