@@ -1,5 +1,6 @@
 NOTE: This implementation borrows and modifies a PyGame Version of flappy bird found at https://github.com/sourabhv/FlapPyBird, by Sourabh Verma (sourabhv)
 
+<img src="videos/output.gif">
 
 FlappyBirdClone
 ===============
