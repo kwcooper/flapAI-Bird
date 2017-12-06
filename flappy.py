@@ -2,6 +2,7 @@ from itertools import cycle
 import random
 import sys
 from copy import deepcopy
+import csv
 
 import pygame
 from pygame.locals import *
@@ -424,7 +425,12 @@ def mainGame(movementInfo, birds, highscore, generation, PRINT):
                 print()
                 for j in i:
                     print(j)
-            
+
+##            with open('birdNet.csv', 'w') as csvfile:
+##                writer = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL) 
+##
+##                writer.writerow([neural_input_x, neural_input_y, playerFlapped, score, playerVelY])
+##            
             break
 
         
@@ -629,6 +635,17 @@ def generateBirds(birds, fitness,  FIRST, initx, inity, birdIndex, initVelY,init
                                        initRot, crossOver(birdOne, birdTwo))
         birds = newGeneration
 
+        # This will print out the network for each bird
+        for bird in birds:
+            print()
+            bird = birds[bird]
+            print(bird.key)
+            for i in bird.network.network:
+                print()
+                for j in i:
+                    print(j)
+                        
+
     return birds
 
 def mutation(network, MUT_RATE=.2):
@@ -636,11 +653,11 @@ def mutation(network, MUT_RATE=.2):
         for i in range(len(network.network[0][index]['weights'])):
             if random.random() < MUT_RATE:
                 network.network[0][index]['weights'][i] += random.triangular(-1, 1) * network.network[0][index]['weights'][i]
+                #print(network.network[0][index]['weights'][i])
     return network
 
 # Cross over is a genetic concepts and this creates new offspring from two parents
 def crossOver(bird1, bird2, MUT_RATE=0.2):
-
     network1 = deepcopy(bird1.network)              # Bird 1's neural network
     network2 = deepcopy(bird2.network)              # Bird 2's neural network
     numberHidden = int(network1.hidden)             # Number of Hidden Neurons
@@ -662,7 +679,7 @@ def crossOver(bird1, bird2, MUT_RATE=0.2):
         temp = network1.network[1][0]['weights'][selectionIndex]
         network1.network[1][0]['weights'][selectionIndex] = network2.network[1][0]['weights'][selectionIndex]
         network2.network[1][0]['weights'][selectionIndex] = temp
-
+        
     return mutation(random.choice([network1, network2]))
 
 
