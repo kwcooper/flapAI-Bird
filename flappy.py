@@ -404,7 +404,7 @@ def mainGame(movementInfo, birds, highscore, generation, PRINT):
             
         # when score hits a threshold, check for the bird with the highest score
         # then report its network. 
-        if score > 2:
+        if score > 2000:
             print("getting net")
             bird = None
             for bird in birds:
@@ -636,14 +636,14 @@ def generateBirds(birds, fitness,  FIRST, initx, inity, birdIndex, initVelY,init
         birds = newGeneration
 
         # This will print out the network for each bird
-        for bird in birds:
-            print()
-            bird = birds[bird]
-            print(bird.key)
-            for i in bird.network.network:
-                print()
-                for j in i:
-                    print(j)
+##        for bird in birds:
+##            print()
+##            bird = birds[bird]
+##            print(bird.key)
+##            for i in bird.network.network:
+##                print()
+##                for j in i:
+##                    print(j)
                         
 
     return birds
