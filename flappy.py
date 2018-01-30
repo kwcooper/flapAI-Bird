@@ -3,6 +3,7 @@ import random
 import sys
 from copy import deepcopy
 import csv
+import pickle
 
 import pygame
 from pygame.locals import *
@@ -12,16 +13,16 @@ import math
 from bird import Bird
 from neural import Net
 
-# Set some game and sim params
-FPS = 55
+
+FPS = 500
 SCREENWIDTH  = 288
 SCREENHEIGHT = 512
 PIPEGAPSIZE  = 105 # gap between upper and lower part of pipe
 BASEY        = SCREENHEIGHT * 0.79 # amount by which base can maximum shift to left
 PIPEDETERMINTISIC = False
-DISPLAYSCREEN = False # Do we want to spend cycles on the screen
+DISPLAYSCREEN = True
 SOUNDS = False
-DISPLAYWELCOME = False
+DISPLAYWELCOME = True
 GAMEOVERSCREEN = False
 NUMBERBIRDS = 10
 FIRST = True
@@ -75,14 +76,14 @@ except NameError:
     xrange = range
 
 # main function to run game
-def main(DISPLAYSCREEN):
+def main():
     global SCREEN, FPSCLOCK, PAUSE
     pygame.init()
     PAUSE = False;
     FPSCLOCK = pygame.time.Clock()
     SCREEN = pygame.display.set_mode((SCREENWIDTH, SCREENHEIGHT))
     pygame.display.set_caption('Flappy Bird')
-    z = input('_')
+
     # numbers sprites for score display
     IMAGES['numbers'] = (
         pygame.image.load('assets/sprites/0.png').convert_alpha(),
@@ -404,7 +405,7 @@ def mainGame(movementInfo, birds, highscore, generation, PRINT):
 
         # when score hits a threshold, check for the bird with the highest score
         # then report its network.
-        if score > 2000 :
+        if score > 200 :
             print("getting net")
             bird = None
             for bird in birds:
@@ -418,7 +419,10 @@ def mainGame(movementInfo, birds, highscore, generation, PRINT):
             print("best Bird Score:", bestBird.score)
             print("best Bird Generation:", generation)
             print()
+
             bestNet = bestBird.network.network
+            print("Saving bestNet")
+            pickle.dump(bestNet, open("bestNet.p", "wb"))
             print(bestNet)
             print()
             for i in bestNet:
