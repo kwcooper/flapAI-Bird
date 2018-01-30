@@ -12,20 +12,20 @@ import math
 from bird import Bird
 from neural import Net
 
-
+# Set some game and sim params
 FPS = 55
 SCREENWIDTH  = 288
 SCREENHEIGHT = 512
 PIPEGAPSIZE  = 105 # gap between upper and lower part of pipe
 BASEY        = SCREENHEIGHT * 0.79 # amount by which base can maximum shift to left
 PIPEDETERMINTISIC = False
-DISPLAYSCREEN = True
+DISPLAYSCREEN = False # Do we want to spend cycles on the screen
 SOUNDS = False
-DISPLAYWELCOME = True
+DISPLAYWELCOME = False
 GAMEOVERSCREEN = False
 NUMBERBIRDS = 10
 FIRST = True
-PRINT = False #k added optional print to the mainGame function for speedup 
+PRINT = False #k added optional print to the mainGame function for speedup
 
 HIGHSCORE = 0
 GENERATION = 0
@@ -75,14 +75,14 @@ except NameError:
     xrange = range
 
 # main function to run game
-def main():
+def main(DISPLAYSCREEN):
     global SCREEN, FPSCLOCK, PAUSE
     pygame.init()
     PAUSE = False;
     FPSCLOCK = pygame.time.Clock()
     SCREEN = pygame.display.set_mode((SCREENWIDTH, SCREENHEIGHT))
     pygame.display.set_caption('Flappy Bird')
-
+    z = input('_')
     # numbers sprites for score display
     IMAGES['numbers'] = (
         pygame.image.load('assets/sprites/0.png').convert_alpha(),
@@ -158,12 +158,12 @@ def main():
             )
 #5787
 #6649
-            
+
         movementInfo = showWelcomeAnimation()
         birds_m, highscore = mainGame(movementInfo, birds, highscore, generation, PRINT)
         birds = showGameOverScreen(birds_m)
         generation += 1
-        
+
 
 
 
@@ -234,7 +234,7 @@ def pause():
             if event.type == KEYDOWN and (event.key == K_p):
                 PAUSE = False
 
-    
+
 def mainGame(movementInfo, birds, highscore, generation, PRINT):
     score = birdIndex = loopIter = 0
     playerIndexGen = movementInfo['playerIndexGen']
@@ -395,16 +395,16 @@ def mainGame(movementInfo, birds, highscore, generation, PRINT):
             visibleRot = bird.rotThr
             if bird.rot <= bird.rotThr:
                 visibleRot = bird.rot
-        
+
             playerSurface = pygame.transform.rotate(IMAGES[bird.key][bird.index], visibleRot)
             SCREEN.blit(playerSurface, (bird.x, bird.y))
 
         if DISPLAYSCREEN:
             pygame.display.update()
-            
+
         # when score hits a threshold, check for the bird with the highest score
-        # then report its network. 
-        if score > 2000:
+        # then report its network.
+        if score > 2000 :
             print("getting net")
             bird = None
             for bird in birds:
@@ -427,13 +427,13 @@ def mainGame(movementInfo, birds, highscore, generation, PRINT):
                     print(j)
 
 ##            with open('birdNet.csv', 'w') as csvfile:
-##                writer = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL) 
+##                writer = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
 ##
 ##                writer.writerow([neural_input_x, neural_input_y, playerFlapped, score, playerVelY])
-##            
+##
             break
 
-        
+
         FPSCLOCK.tick(FPS)
 
 
@@ -644,7 +644,7 @@ def generateBirds(birds, fitness,  FIRST, initx, inity, birdIndex, initVelY,init
 ##                print()
 ##                for j in i:
 ##                    print(j)
-                        
+
 
     return birds
 
@@ -679,7 +679,7 @@ def crossOver(bird1, bird2, MUT_RATE=0.2):
         temp = network1.network[1][0]['weights'][selectionIndex]
         network1.network[1][0]['weights'][selectionIndex] = network2.network[1][0]['weights'][selectionIndex]
         network2.network[1][0]['weights'][selectionIndex] = temp
-        
+
     return mutation(random.choice([network1, network2]))
 
 
