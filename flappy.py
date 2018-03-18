@@ -13,6 +13,9 @@ import math
 from bird import Bird
 from neural import Net
 
+global data
+
+# line ~325 for network propigation
 
 FPS = 500
 SCREENWIDTH  = 288
@@ -27,7 +30,7 @@ GAMEOVERSCREEN = False
 NUMBERBIRDS = 10
 FIRST = True
 PRINT = False #k added optional print to the mainGame function for speedup
-
+sound = False #k
 HIGHSCORE = 0
 GENERATION = 0
 
@@ -161,7 +164,7 @@ def main():
 #6649
 
         movementInfo = showWelcomeAnimation()
-        birds_m, highscore = mainGame(movementInfo, birds, highscore, generation, PRINT)
+        birds_m, highscore = mainGame(movementInfo, birds, highscore, generation, PRINT, sound)
         birds = showGameOverScreen(birds_m)
         generation += 1
 
@@ -236,7 +239,7 @@ def pause():
                 PAUSE = False
 
 
-def mainGame(movementInfo, birds, highscore, generation, PRINT):
+def mainGame(movementInfo, birds, highscore, generation, PRINT, sound):
     score = birdIndex = loopIter = 0
     playerIndexGen = movementInfo['playerIndexGen']
     initx, inity = int(SCREENWIDTH * 0.2), int(SCREENHEIGHT *.4)
@@ -285,11 +288,13 @@ def mainGame(movementInfo, birds, highscore, generation, PRINT):
                     if bird.y > -2 * IMAGES[bird.key][0].get_height():
                         bird.velY = bird.flapAcc
                         bird.flapped = True
-                        SOUNDS['wing'].play()
+                        if sound:
+                            SOUNDS['wing'].play()
             if event.type == KEYDOWN and (event.key == K_p):
                 pause()
 
         bird_passed = False
+        # iterate through birds: check if crashed, and propigate net
         for bird in birds:
             bird = birds[bird]
             if bird.moving:
@@ -301,7 +306,7 @@ def mainGame(movementInfo, birds, highscore, generation, PRINT):
                 bird.moving = False
                 bird.distFromOpen = abs((lowerPipes[0]['y'] - PIPEGAPSIZE / 2) - bird.y)
                 crashedBirds += 1
-
+            # make a new set of birds if all dead
             if crashedBirds == len(birds):
                 fitness = rankBirdsFitness(birds)
                 if score > 0:
@@ -309,7 +314,8 @@ def mainGame(movementInfo, birds, highscore, generation, PRINT):
                 else:
                     birds = generateBirds({}, {}, FIRST, initx, inity, birdIndex, initVelY, initAccY, initRot)
                 return birds, highscore
-
+            
+            # propigate network
             if bird.moving:
                 birdMidPos = bird.x + IMAGES[bird.key][0].get_width() / 2
                 neural_input_x = (lowerPipes[0]['x'] + (IMAGES['pipe'][0].get_width() /2)) - birdMidPos
@@ -318,7 +324,7 @@ def mainGame(movementInfo, birds, highscore, generation, PRINT):
                     neural_input_x = (lowerPipes[1]['x'] + (IMAGES['pipe'][0].get_width() /2)) - birdMidPos
                     neural_input_y = (lowerPipes[1]['y'] - PIPEGAPSIZE / 2) - (bird.y + birdHeight / 2)
 
-
+                # check if bird flapped
                 if bird.flaps(neural_input_x, neural_input_y) and bird.y > -2 * IMAGES[bird.key][0].get_height():
                     bird.velY = bird.flapAcc
                     bird.flapped = True
@@ -660,7 +666,7 @@ def mutation(network, MUT_RATE=.2):
                 #print(network.network[0][index]['weights'][i])
     return network
 
-# Cross over is a genetic concepts and this creates new offspring from two parents
+# Cross over mixes the bird's genes and creates new offspring from two parents
 def crossOver(bird1, bird2, MUT_RATE=0.2):
     network1 = deepcopy(bird1.network)              # Bird 1's neural network
     network2 = deepcopy(bird2.network)              # Bird 2's neural network

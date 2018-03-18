@@ -4,10 +4,11 @@ from random import random
 import random
 import numpy as np
 
+
 class Net:
     def __init__(self, n_inputs, n_outputs, n_net=False, n_bias=False, n_hidden=6):
-        self.height = 190
-        self.distance = 142
+        self.height = 0 #190
+        self.distance = 0 #142
         self.inputs = n_inputs
         self.hidden = n_hidden
         self.outputs = n_outputs
@@ -75,6 +76,19 @@ class Net:
             inputs = new_inputs
         return inputs
 
+    # returns the network
     def get_net(self):
         return self.network
+
+    # returns the metadata of the network for analysis
+    def grab_meta(self):
+        metaData = [self.inputs, self.hidden, self.outputs]
+        
+        return metaData
+
+
+# Test Network
+n = Net(3, 4, n_net=False, n_bias=False, n_hidden=6)
+
+data = n.grab_meta()
 
