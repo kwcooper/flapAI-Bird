@@ -17,7 +17,7 @@ sys.argv.append('py2exe')
 setup(
     name =    'Flappy Bird',
     version = '1.0',
-    author =  'Sourabh Verma',
+    author =  'George Clooney',
     options = {
         'py2exe': {
             'bundle_files': 1, # doesn't work on win64
