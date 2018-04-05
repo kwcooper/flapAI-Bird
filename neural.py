@@ -82,13 +82,16 @@ class Net:
 
     # returns the metadata of the network for analysis
     def grab_meta(self):
-        metaData = [self.inputs, self.hidden, self.outputs]
-        
-        return metaData
+        topo = [self.inputs, self.hidden, self.outputs]
+        weights = self.network
+        return {'topo':topo, 'netWeights':weights}
 
 
 # Test Network
-n = Net(3, 4, n_net=False, n_bias=False, n_hidden=6)
-
-data = n.grab_meta()
-
+##n = Net(2, 1, n_net=False, n_bias=False, n_hidden=3)
+##
+##dat = n.grab_meta()
+##
+##for i in n.network:
+##	for j in i:
+##		print(j)
