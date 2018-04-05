@@ -33,7 +33,8 @@ class Bird:
             self.network    = net
 
     def calculate_fitness(self):
-        return self.score + self.distTraveled - self.distFromOpen
+        #return self.score + self.distTraveled - self.distFromOpen
+        return self.score
 
     # Determines if the birds flaps, calling on it's neural net
     def flaps(self, inputX, inputY):

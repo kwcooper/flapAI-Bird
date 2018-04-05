@@ -164,7 +164,7 @@ def main():
 #6649
 
         movementInfo = showWelcomeAnimation()
-        birds_m, highscore = mainGame(movementInfo, birds, highscore, generation, PRINT, sound)
+        birds_m, highscore = mainGame(movementInfo, birds, highscore, generation, PRINT, sound, 0)
         birds = showGameOverScreen(birds_m)
         generation += 1
 
@@ -239,7 +239,7 @@ def pause():
                 PAUSE = False
 
 
-def mainGame(movementInfo, birds, highscore, generation, PRINT, sound):
+def mainGame(movementInfo, birds, highscore, generation, PRINT, sound, lastGen):
     score = birdIndex = loopIter = 0
     playerIndexGen = movementInfo['playerIndexGen']
     initx, inity = int(SCREENWIDTH * 0.2), int(SCREENHEIGHT *.4)
@@ -275,8 +275,10 @@ def mainGame(movementInfo, birds, highscore, generation, PRINT, sound):
     birdFlapped = False # True when player flaps
     birdHeight = IMAGES['Bird 0'][0].get_height()
     crashedBirds = 0    # Number of birds crashed so far
+
     if len(birds) == 0:
         birds = generateBirds({}, {}, FIRST, initx, inity, birdIndex, initVelY,initAccY,initRot)
+
     while True:
         for event in pygame.event.get():
             if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
@@ -309,6 +311,16 @@ def mainGame(movementInfo, birds, highscore, generation, PRINT, sound):
             # make a new set of birds if all dead
             if crashedBirds == len(birds):
                 fitness = rankBirdsFitness(birds)
+
+                # 
+                # grab last gen data before making new generation
+                #
+                print('get dat for Gen', generation)
+                data = [] #gen { }
+                data.append({generation:[]})
+                for bird in birds:
+                    print(birds[bird].score)
+                    data[0][generation].append({bird[5]:[birds[bird].score]})
                 if score > 0:
                     birds = generateBirds(birds, fitness, False, initx, inity, birdIndex, initVelY, initAccY,initRot)
                 else:
@@ -409,9 +421,22 @@ def mainGame(movementInfo, birds, highscore, generation, PRINT, sound):
         if DISPLAYSCREEN:
             pygame.display.update()
 
+        
         # when score hits a threshold, check for the bird with the highest score
         # then report its network.
-        if score > 200 :
+        if False:
+            lastGen = generation
+
+            print('get dat for Gen', generation)
+            data = [] #gen { }
+            data.append({generation:[]})
+            for bird in birds:
+                #print(birds[bird].score)
+                #data[0][generation].append({bird[5]:[birds[bird].score]})
+                pass
+
+            
+        if score > 20000:
             print("getting net")
             bird = None
             for bird in birds:
@@ -710,6 +735,7 @@ def rankBirdsFitness(birds):
                     break
             if not inserted:
                 fitness.append(birdFitness)
+    
     return fitness
 
 def getHitmask(image):
