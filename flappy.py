@@ -86,6 +86,8 @@ def main():
     FPSCLOCK = pygame.time.Clock()
     SCREEN = pygame.display.set_mode((SCREENWIDTH, SCREENHEIGHT))
     pygame.display.set_caption('Flappy Bird')
+    data = []
+    pickle.dump(data, open("data.p", "wb"))
 
     # numbers sprites for score display
     IMAGES['numbers'] = (
@@ -164,7 +166,7 @@ def main():
 #6649
 
         movementInfo = showWelcomeAnimation()
-        birds_m, highscore = mainGame(movementInfo, birds, highscore, generation, PRINT, sound, 0)
+        birds_m, highscore = mainGame(movementInfo, birds, highscore, generation, PRINT, sound, 0, data)
         birds = showGameOverScreen(birds_m)
         generation += 1
 
@@ -239,7 +241,7 @@ def pause():
                 PAUSE = False
 
 
-def mainGame(movementInfo, birds, highscore, generation, PRINT, sound, lastGen):
+def mainGame(movementInfo, birds, highscore, generation, PRINT, sound, lastGen, data):
     score = birdIndex = loopIter = 0
     playerIndexGen = movementInfo['playerIndexGen']
     initx, inity = int(SCREENWIDTH * 0.2), int(SCREENHEIGHT *.4)
@@ -315,12 +317,22 @@ def mainGame(movementInfo, birds, highscore, generation, PRINT, sound, lastGen):
                 # 
                 # grab last gen data before making new generation
                 #
-                print('get dat for Gen', generation)
-                data = [] #gen { }
-                data.append({generation:[]})
+                if generation % 10 == 0:
+                    print('get-dat for Gen:', generation)
+                data = pickle.load(open("data.p", "rb"))
+                data.append({'G'+str(generation):[]})
+                #print(data[])
+                genScores = []
                 for bird in birds:
-                    print(birds[bird].score)
-                    data[0][generation].append({bird[5]:[birds[bird].score]})
+                    genScores.append(birds[bird].score)
+                    data[generation]['G'+str(generation)].append({'B'+bird[5]:[birds[bird].score, birds[bird].network.grab_meta()]})
+
+                data[generation]['G'+str(generation)].append(genScores)
+                #print("Saving Data")
+                pickle.dump(data, open("data.p", "wb"))
+                #
+                #
+                #
                 if score > 0:
                     birds = generateBirds(birds, fitness, False, initx, inity, birdIndex, initVelY, initAccY,initRot)
                 else:
