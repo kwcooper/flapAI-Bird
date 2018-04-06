@@ -653,19 +653,19 @@ def generateBirds(birds, fitness,  FIRST, initx, inity, birdIndex, initVelY,init
         newGeneration['Bird 0'] = Bird(initx, inity, first.index, "Bird " + str(0), initVelY, initAccY,
                                        initRot, Net(numInputs, numOutputs, deepcopy(first.network.network),
                                                              deepcopy(first.network.bias)))
-        newGeneration['Bird 1'] = Bird(initx, inity, second.index, "Bird " + str(1), initVelY, initAccY,
+        newGeneration['Bird 1'] = Bird(initx, inity, first.index, "Bird " + str(1), initVelY, initAccY,
                                        initRot, mutation(Net(numInputs, numOutputs, deepcopy(first.network.network),
                                                              deepcopy(first.network.bias),.05)))
-        newGeneration['Bird 2'] = Bird(initx, inity, third.index, "Bird " + str(2), initVelY, initAccY,
+        newGeneration['Bird 2'] = Bird(initx, inity, first.index, "Bird " + str(2), initVelY, initAccY,
                                        initRot, mutation(Net(numInputs, numOutputs, deepcopy(first.network.network),
                                                              deepcopy(first.network.bias)), .10))
-        newGeneration['Bird 3'] = Bird(initx, inity, fourth.index, "Bird " + str(3), initVelY, initAccY,
+        newGeneration['Bird 3'] = Bird(initx, inity, first.index, "Bird " + str(3), initVelY, initAccY,
                                        initRot, mutation(Net(numInputs, numOutputs, deepcopy(first.network.network),
                                                              deepcopy(second.network.bias)), .15))
-        newGeneration['Bird 4'] = Bird(initx, inity, fourth.index, "Bird " + str(4), initVelY, initAccY,
+        newGeneration['Bird 4'] = Bird(initx, inity, second.index, "Bird " + str(4), initVelY, initAccY,
                                        initRot, mutation(Net(numInputs, numOutputs, deepcopy(first.network.network),
                                                              deepcopy(second.network.bias)), .15))
-        newGeneration['Bird 5'] = Bird(initx, inity, fourth.index, "Bird " + str(5), initVelY, initAccY,
+        newGeneration['Bird 5'] = Bird(initx, inity, third.index, "Bird " + str(5), initVelY, initAccY,
                                        initRot, mutation(Net(numInputs, numOutputs, deepcopy(first.network.network),
                                                              deepcopy(third.network.bias)), .1))
         newGeneration['Bird 6'] = Bird(initx, inity, first.index, "Bird " + str(6), initVelY, initAccY,
