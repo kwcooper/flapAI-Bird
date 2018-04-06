@@ -311,7 +311,7 @@ def mainGame(movementInfo, birds, highscore, generation, PRINT, sound, lastGen, 
                 bird.distFromOpen = abs((lowerPipes[0]['y'] - PIPEGAPSIZE / 2) - bird.y)
                 crashedBirds += 1
             # make a new set of birds if all dead
-            if crashedBirds == len(birds):
+            if crashedBirds == len(birds) or score > 10000:
                 fitness = rankBirdsFitness(birds)
 
                 # 
@@ -326,7 +326,7 @@ def mainGame(movementInfo, birds, highscore, generation, PRINT, sound, lastGen, 
                 for bird in birds:
                     genScores.append(birds[bird].score)
                     data[generation]['G'+str(generation)].append({'B'+bird[5]:[birds[bird].score, birds[bird].network.grab_meta()]})
-
+                    
                 data[generation]['G'+str(generation)].append(genScores)
                 #print("Saving Data")
                 pickle.dump(data, open("data.p", "wb"))
