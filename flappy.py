@@ -16,6 +16,8 @@ from neural import Net
 global data
 
 # line ~325 for network propigation
+# TD: Take a look at the GA again, small degree of varience in net topology
+
 
 FPS = 500
 SCREENWIDTH  = 288
