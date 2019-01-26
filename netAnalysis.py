@@ -28,14 +28,34 @@ scores = []
 for i in range(0,len(d)):
     scores.append(d[i]['G'+str(i)][10])
 
-# find average scores
+# find average and max scores
 genScoreAvg = []
+genScoreMax = []
+genHighScore = [0]
 for i in range(len(scores)):
     genScoreAvg.append(sum(scores[i])/len(scores[i]))
+    genScoreMax.append(max(scores[i]))
 
-plt.plot(genScoreAvg)
-plt.title('Average Score')
-#plt.show()
+    if max(scores[i]) > max(genHighScore):
+        genHighScore.append(max(scores[i]))
+    else:
+        genHighScore.append(max(genHighScore))
+if 0:
+    plt.plot(genScoreAvg)
+    plt.title('Average Score')
+    plt.show()
+
+if 1:
+    plt.plot(genHighScore[1:30])
+    plt.title('High Score Learning Curve')
+    plt.xlabel('Generation')
+    plt.ylabel('Score')
+    plt.show()
+
+if 0:
+    plt.plot(genScoreMax)
+    plt.title('Gen Max Score')
+    plt.show()
 
 print()
 #Grab topos
